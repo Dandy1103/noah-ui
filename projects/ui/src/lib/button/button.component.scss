@@ -1,0 +1,37 @@
+:host {
+  display: contents;
+}
+
+button {
+  justify-self: start;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--brand, #001430);
+  border-radius: 8px;
+  background: var(--brand, #001430);
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+button:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+}
+
+.noah-button-secondary {
+  border-color: #cbd5e1;
+  background: white;
+  color: var(--brand, #001430);
+}
+
+.noah-button-danger {
+  border-color: #b91c1c;
+  background: #b91c1c;
+  color: white;
+}

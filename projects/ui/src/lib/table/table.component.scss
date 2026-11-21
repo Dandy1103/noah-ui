@@ -1,0 +1,32 @@
+noah-table {
+  display: block;
+}
+
+.noah-table {
+  overflow-x: auto;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+}
+
+.noah-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.noah-table th,
+.noah-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.noah-table th {
+  white-space: nowrap;
+}
+
+.noah-table tbody tr:last-child td {
+  border-bottom: 0;
+}
