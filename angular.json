@@ -8,6 +8,13 @@
       "root": "projects/ui",
       "sourceRoot": "projects/ui/src",
       "prefix": "noah",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true,
+          "standalone": true
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -48,7 +55,16 @@
             ],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/ui/styles/reset.scss",
+              "projects/ui/styles/utilities.scss",
               "projects/ui/.storybook/preview.scss"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ui/assets",
+                "output": "/assets"
+              }
             ],
             "port": 6006
           }
@@ -67,7 +83,16 @@
             ],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/ui/styles/reset.scss",
+              "projects/ui/styles/utilities.scss",
               "projects/ui/.storybook/preview.scss"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ui/assets",
+                "output": "/assets"
+              }
             ],
             "outputDir": "storybook-static"
           }

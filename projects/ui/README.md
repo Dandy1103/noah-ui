@@ -13,7 +13,7 @@ Run `ng build ui` to build the project. The build artifacts will be stored in th
 
 ## Publishing
 
-After building your library with `ng build ui`, go to the dist folder `cd dist/ui` and run `npm publish`.
+在專案根目錄執行 `npm run publish patch`（或 `minor`、`major`）。
 
 ## Running unit tests
 

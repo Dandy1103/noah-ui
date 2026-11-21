@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../noah-portal"
+		},
+		{
+			"path": "../noah-hrm"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"js/ts.tsdk.path": "node_modules/typescript/lib"
+	}
+}

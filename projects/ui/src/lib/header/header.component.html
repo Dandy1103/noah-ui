@@ -1,0 +1,36 @@
+<header class="noah-header u-flex u-items-center u-gap-md u-pl-md u-pr-md u-bg-brand u-text-white">
+  <a class="noah-header__home u-shrink-0" [href]="homeHref" aria-label="回首頁">
+    <img class="noah-header__logo" src="assets/images/logo.png" width="360" height="120" alt="諾亞數智">
+  </a>
+  @if (productName) {
+    <span class="noah-header__product u-text-md u-font-semibold u-nowrap">{{ productName }}</span>
+  }
+  <div class="noah-header__actions u-ml-auto u-flex u-items-center u-gap-sm u-min-w-0 u-text-md">
+    @if (userName) {
+      <div class="noah-header__account" #account>
+        <button
+          type="button"
+          class="noah-header__name"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="isMenuOpen"
+          (click)="toggleMenu()">
+          <span class="noah-header__name-text">{{ userName }}</span>
+          <span class="noah-header__caret" aria-hidden="true"></span>
+        </button>
+        @if (isMenuOpen) {
+          <div class="noah-header__menu" role="menu">
+            <a class="noah-header__menu-item" role="menuitem" [href]="passwordHref" (click)="closeMenu()">變更密碼</a>
+          </div>
+        }
+      </div>
+    }
+    @if (linkLabel) {
+      <a class="noah-header__link" [href]="linkHref">{{ linkLabel }}</a>
+    }
+    @if (showLogout) {
+      <form class="noah-header__logout" [action]="logoutAction" method="post">
+        <button class="noah-header__logout-button" type="submit">登出</button>
+      </form>
+    }
+  </div>
+</header>

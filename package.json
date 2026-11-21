@@ -8,7 +8,9 @@
     "watch": "ng build ui --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run ui:storybook",
-    "build-storybook": "ng run ui:build-storybook"
+    "build-storybook": "ng run ui:build-storybook",
+    "publish": "node scripts/publish-ui.mjs",
+    "component": "node scripts/new-component.mjs"
   },
   "private": true,
   "dependencies": {

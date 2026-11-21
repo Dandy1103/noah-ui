@@ -1,5 +1,4 @@
 import { booleanAttribute, Component, Input } from '@angular/core';
-
 export type NoahButtonVariant = 'primary' | 'secondary' | 'danger';
 
 @Component({
@@ -12,4 +11,9 @@ export class NoahButtonComponent {
   @Input() variant: NoahButtonVariant = 'primary';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input({ transform: booleanAttribute }) disabled = false;
+  @Input() message = '';
+
+  get materialColor(): 'primary' | 'warn' {
+    return this.variant === 'danger' ? 'warn' : 'primary';
+  }
 }

@@ -1,0 +1,34 @@
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+$spacing-steps: (
+  0: 0,
+  xs: var(--spacing-xs),
+  sm: var(--spacing-sm),
+  md: var(--spacing-md),
+  lg: var(--spacing-lg),
+  xl: var(--spacing-xl),
+);
+
+@each $step, $size in $spacing-steps {
+  .u-m-#{$step} { margin: $size; }
+  .u-mt-#{$step} { margin-top: $size; }
+  .u-mr-#{$step} { margin-right: $size; }
+  .u-mb-#{$step} { margin-bottom: $size; }
+  .u-ml-#{$step} { margin-left: $size; }
+
+  .u-p-#{$step} { padding: $size; }
+  .u-pt-#{$step} { padding-top: $size; }
+  .u-pr-#{$step} { padding-right: $size; }
+  .u-pb-#{$step} { padding-bottom: $size; }
+  .u-pl-#{$step} { padding-left: $size; }
+
+  .u-gap-#{$step} { gap: $size; }
+}
+
+.u-ml-auto { margin-left: auto; }

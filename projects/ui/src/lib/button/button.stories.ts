@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { NoahButtonComponent } from './button.component';
 
 const meta: Meta<NoahButtonComponent> = {
-  title: '按鈕',
+  title: 'Button',
   component: NoahButtonComponent,
   args: {
     variant: 'primary',
@@ -18,16 +18,16 @@ const meta: Meta<NoahButtonComponent> = {
 export default meta;
 type Story = StoryObj<NoahButtonComponent>;
 
-export const 主要: Story = {};
+export const Primary: Story = {};
 
-export const 次要: Story = {
+export const Secondary: Story = {
   args: { variant: 'secondary' },
 };
 
-export const 危險: Story = {
+export const Danger: Story = {
   args: { variant: 'danger' },
 };
 
-export const 停用: Story = {
+export const Disabled: Story = {
   args: { disabled: true },
 };

@@ -1,0 +1,14 @@
+<nav class="noah-navbar u-bg-surface">
+    <ul class="u-list-none u-flex u-items-center u-justify-center u-h-full">
+        @for (item of items; track item.href) {
+            <li>
+                <button type="button" 
+                        class="noah-navbar__item u-border-bottom" 
+                        [class.u-border-bottom-active]="activeItem === item" 
+                        (click)="setActiveItem(item)">
+                    <span class="noah-navbar__item-label u-text-md">{{ item.label }}</span>
+                </button>
+            </li>
+        }
+    </ul>
+</nav>

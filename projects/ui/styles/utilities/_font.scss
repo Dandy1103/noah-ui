@@ -1,0 +1,14 @@
+:root {
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+.u-font-semibold { font-weight: var(--font-weight-semibold); }
+.u-font-bold { font-weight: var(--font-weight-bold); }
+.u-text-center { text-align: center; }
+.u-nowrap { white-space: nowrap; }
+.u-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

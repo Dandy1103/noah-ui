@@ -1,37 +1,33 @@
-:host {
-  display: contents;
-}
-
-button {
-  justify-self: start;
-  min-height: 44px;
-  padding: 8px 12px;
-  border: 1px solid var(--brand, #001430);
-  border-radius: 8px;
-  background: var(--brand, #001430);
-  color: white;
+.noah-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  background: var(--color-primary);
+  color: var(--color-white);
   font: inherit;
-  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+  appearance: none;
 }
 
-button:disabled {
-  opacity: 0.55;
-  cursor: default;
+.noah-button--secondary {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border);
 }
 
-button:focus-visible {
-  outline: 2px solid #0284c7;
-  outline-offset: 2px;
+.noah-button--danger {
+  background: var(--color-danger);
+  color: var(--color-white);
 }
 
-.noah-button-secondary {
-  border-color: #cbd5e1;
-  background: white;
-  color: var(--brand, #001430);
+.noah-button:disabled {
+  opacity: 0.45;
 }
 
-.noah-button-danger {
-  border-color: #b91c1c;
-  background: #b91c1c;
-  color: white;
+.noah-button--secondary:hover:not(:disabled) {
+  background: var(--color-surface-selected);
 }

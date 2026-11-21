@@ -1,0 +1,22 @@
+:root {
+  --color-primary: #001430;
+  --color-primary-hover: #08344e;
+  --color-surface: #ffffff;
+  --color-surface-selected: #edf2f8;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-danger: #dc2626;
+  --color-white: #ffffff;
+}
+
+.u-text-brand { color: var(--color-primary); }
+.u-text-on-brand { color: var(--color-surface); }
+.u-text-secondary { color: var(--color-text-secondary); }
+.u-text-muted { color: var(--color-text-muted); }
+.u-text-danger { color: var(--color-danger); }
+.u-text-white { color: var(--color-white); }
+
+
+.u-bg-brand { background-color: var(--color-primary); }
+.u-bg-surface { background-color: var(--color-surface); }
+.u-bg-selected { background-color: var(--color-surface-selected); }
