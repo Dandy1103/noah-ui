@@ -26,7 +26,7 @@ npm run publish patch
 
 `patch` 可換成 `minor` 或 `major`。會改 `projects/ui/package.json` 的版本，再打包發到 GitHub Packages。失敗會把版本改回去。
 
-本機要有 `.npmrc`，這份檔案不進 git。換電腦時自己帶過去。
+本機要有 `.npmrc`，這份檔案不進 git。金鑰永久放在 Windows 使用者環境變數，做法看 [GitHub Packages 金鑰](docs/github-packages.md)。
 
 Storybook 網站推上 `develop` 就會部署。
 

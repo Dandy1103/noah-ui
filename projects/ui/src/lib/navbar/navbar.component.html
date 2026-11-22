@@ -1,14 +1,86 @@
-<nav class="noah-navbar u-bg-surface">
-    <ul class="u-list-none u-flex u-items-center u-justify-center u-h-full">
-        @for (item of items; track item.href) {
-            <li>
-                <button type="button" 
-                        class="noah-navbar__item u-border-bottom" 
-                        [class.u-border-bottom-active]="activeItem === item" 
-                        (click)="setActiveItem(item)">
-                    <span class="noah-navbar__item-label u-text-md">{{ item.label }}</span>
-                </button>
-            </li>
+<nav #bar class="portal-nav" aria-label="功能" [class.is-overflow]="visibleCount() < groups.length" (mouseenter)="cancelHide()" (mouseleave)="scheduleHide()">
+    <div #measure class="portal-nav__measure" aria-hidden="true">
+        @for (group of groups; track group.label) {
+            <button type="button" class="portal-nav__probe" data-item>{{ group.label }}</button>
         }
-    </ul>
+        <button type="button" class="portal-nav__probe" data-more>…</button>
+    </div>
+    @for (group of groups; track group.label; let index = $index) {
+        @if (index < visibleCount()) {
+            <div class="portal-nav__item"
+                [class.portal-nav__item--end]="index >= groups.length / 2"
+                [class.portal-nav__item--current]="group.label === currentLabel"
+                (mouseenter)="openFromBar(group.label)"
+                (focusin)="openFromBar(group.label)"
+                (focusout)="close($event)">
+                <button type="button"
+                    [attr.aria-expanded]="opened() === group.label"
+                    [attr.aria-current]="group.label === currentLabel ? 'page' : null"
+                    (keydown.escape)="hide()">
+                    {{ group.label }}
+                </button>
+                @if (opened() === group.label) {
+                    <div class="portal-nav__panel">
+                        @for (section of group.sections; track section.title) {
+                            <section>
+                                <h2>{{ section.title }}</h2>
+                                <ul>
+                                    @for (link of section.links; track link.label) {
+                                        <li>
+                                            @if (link.href; as href) {
+                                                <a [href]="href">{{ link.label }}</a>
+                                            } @else {
+                                                <span>{{ link.label }}</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </section>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    }
+    @if (visibleCount() < groups.length) {
+        <div #more class="portal-nav__item portal-nav__more" [class.portal-nav__item--current]="overflowCurrent()" (mouseenter)="hide()">
+            <button type="button" aria-label="更多" aria-haspopup="menu" [attr.aria-expanded]="moreOpen()" (click)="toggleMore()">…</button>
+            @if (moreOpen()) {
+                <div class="portal-nav__more-menu" role="menu">
+                    @for (group of groups.slice(visibleCount()); track group.label) {
+                        <div class="portal-nav__more-item" (mouseenter)="open(group.label)" (focusin)="open(group.label)">
+                            <button type="button"
+                                [attr.aria-expanded]="opened() === group.label"
+                                [attr.aria-current]="group.label === currentLabel ? 'page' : null">
+                                {{ group.label }}
+                            </button>
+                            @if (opened() === group.label) {
+                                <div class="portal-nav__panel">
+                                    @for (section of group.sections; track section.title) {
+                                        <section>
+                                            <h2>{{ section.title }}</h2>
+                                            <ul>
+                                                @for (link of section.links; track link.label) {
+                                                    <li>
+                                                        @if (link.href; as href) {
+                                                            <a [href]="href">{{ link.label }}</a>
+                                                        } @else {
+                                                            <span>{{ link.label }}</span>
+                                                        }
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </section>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    @if (opened() || moreOpen()) {
+        <div class="portal-nav__mask" (mouseenter)="hide()"></div>
+    }
 </nav>

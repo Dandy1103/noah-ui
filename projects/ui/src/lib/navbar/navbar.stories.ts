@@ -5,7 +5,7 @@ const meta: Meta<NoahNavbarComponent> = {
   title: 'Navbar',
   component: NoahNavbarComponent,
   render: () => ({
-    template: `<noah-navbar></noah-navbar>`,
+    template: `<noah-navbar repo="noah-portal" fallbackLabel="入口"></noah-navbar>`,
   }),
 };
 

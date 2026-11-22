@@ -12,6 +12,8 @@ const meta: Meta<NoahHeaderComponent> = {
     homeHref: '#',
     userName: '王小明',
     passwordHref: '#',
+    profileHref: '#',
+    permissionsHref: '#',
   },
 };
 

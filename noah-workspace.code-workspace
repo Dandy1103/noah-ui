@@ -8,6 +8,48 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../noah-apps"
+		},
+		{
+			"path": "../noah-notice"
+		},
+		{
+			"path": "../noah-notify"
+		},
+		{
+			"path": "../noah-docs"
+		},
+		{
+			"path": "../noah-calendar"
+		},
+		{
+			"path": "../noah-crm"
+		},
+		{
+			"path": "../noah-erp"
+		},
+		{
+			"path": "../noah-itsm"
+		},
+		{
+			"path": "../noah-lms"
+		},
+		{
+			"path": "../noah-approval"
+		},
+		{
+			"path": "../noah-project"
+		},
+		{
+			"path": "../noah-account"
+		},
+		{
+			"path": "../noah-affairs"
+		},
+		{
+			"path": "../noah-payroll"
 		}
 	],
 	"settings": {
