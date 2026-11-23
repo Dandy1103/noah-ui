@@ -4,9 +4,5 @@
   class="noah-button u-text-md u-rounded-sm"
   [class.noah-button--secondary]="variant === 'secondary'"
   [class.noah-button--danger]="variant === 'danger'">
-  @if (message) {
-    {{ message }}
-  } @else {
-    <ng-content />
-  }
+  {{ message }}
 </button>

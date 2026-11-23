@@ -1,12 +1,10 @@
 <header class="noah-header">
-  <a class="noah-header__home" [href]="homeHref" [attr.aria-label]="homeLabel">
-    <img class="noah-header__logo" src="assets/images/logo.png" width="360" height="120" alt="諾亞數智">
+  <a class="noah-header__home" [href]="link('/')" aria-label="回首頁">
+    <img class="noah-header__logo" src="assets/images/logo.png" width="36" height="36" alt="">
+    <span class="noah-header__brand">NOAH</span>
   </a>
-  @if (productName) {
-    <span class="noah-header__product">{{ productName }}</span>
-  }
   <div class="noah-header__actions">
-    @if (shownName()) {
+    @if (userName) {
       <div class="noah-header__account" #account>
         <button
           type="button"
@@ -14,25 +12,20 @@
           aria-haspopup="menu"
           [attr.aria-expanded]="isMenuOpen"
           (click)="toggleMenu()">
-          <span class="noah-header__name-text">{{ shownName() }}</span>
+          <span class="noah-header__name-text">{{ userName }}</span>
           <span class="noah-header__caret" aria-hidden="true"></span>
         </button>
         @if (isMenuOpen) {
           <div class="noah-header__menu" role="menu">
-            <a class="noah-header__menu-item" role="menuitem" [href]="pageHref('profile')" (click)="closeMenu()">個人資料</a>
-            <a class="noah-header__menu-item" role="menuitem" [href]="pageHref('permissions')" (click)="closeMenu()">我的權限</a>
-            <a class="noah-header__menu-item" role="menuitem" [href]="authHref(passwordHref, '/auth/change-password')" (click)="closeMenu()">變更密碼</a>
-            @if (showLogout) {
-              <form class="noah-header__logout" [action]="authHref(logoutAction, '/auth/logout')" method="post">
-                <button class="noah-header__menu-item" type="submit" role="menuitem">登出</button>
-              </form>
-            }
+            <a class="noah-header__menu-item" role="menuitem" [href]="link('/profile')" (click)="closeMenu()">個人資料</a>
+            <a class="noah-header__menu-item" role="menuitem" [href]="link('/permissions')" (click)="closeMenu()">我的權限</a>
+            <a class="noah-header__menu-item" role="menuitem" [href]="link('/auth/change-password')" (click)="closeMenu()">變更密碼</a>
+            <form class="noah-header__logout" [action]="link('/auth/logout')" method="post">
+              <button class="noah-header__menu-item" type="submit" role="menuitem">登出</button>
+            </form>
           </div>
         }
       </div>
-    }
-    @if (linkLabel) {
-      <a class="noah-header__link" [href]="linkHref">{{ linkLabel }}</a>
     }
   </div>
 </header>

@@ -2,18 +2,14 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { NoahHeaderComponent } from './header.component';
 
 const meta: Meta<NoahHeaderComponent> = {
+  tags: ['autodocs'],
   title: 'Header',
   component: NoahHeaderComponent,
   parameters: {
     layout: 'fullscreen',
   },
   args: {
-    productName: 'Noah Portal',
-    homeHref: '#',
     userName: '王小明',
-    passwordHref: '#',
-    profileHref: '#',
-    permissionsHref: '#',
   },
 };
 

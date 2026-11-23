@@ -13,6 +13,7 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() repo = '';
   @Input() fallbackLabel = '';
   @Input() preview: CatalogGroup[] | null = null;
+  @Input() catalog: NavCatalog | null = null;
   @Input() revision = 0;
 
   currentLabel = '';
@@ -22,6 +23,7 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
   groups: NavGroup[] = [];
 
   private saved: NavCatalog | null = null;
+  private outsideCatalog = false;
   private observer?: ResizeObserver;
   private closeTimer = 0;
   private readonly loadAbort = new AbortController();
@@ -40,16 +42,21 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (this.outsideCatalog) return;
     this.fetch();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['catalog']) {
+      this.outsideCatalog = true;
+      this.applyOutside();
+    }
     const revision = changes['revision'];
-    if (revision && !revision.firstChange) {
+    if (revision && !revision.firstChange && !this.outsideCatalog) {
       this.fetch();
       return;
     }
-    if (changes['preview']) this.showSaved();
+    if (changes['preview'] && !changes['catalog']) this.showSaved();
   }
 
   ngAfterViewInit(): void {
@@ -117,7 +124,19 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
     this.opened.set(null);
   }
 
+  private applyOutside(): void {
+    if (!this.catalog) {
+      this.saved = null;
+      this.useCatalog(null);
+      return;
+    }
+    const groups = this.preview ?? this.catalog.groups;
+    this.saved = { ...this.catalog, groups };
+    this.useCatalog(this.saved);
+  }
+
   private fetch(): void {
+    if (this.outsideCatalog) return;
     if (this.preview && this.saved) {
       this.showSaved();
       return;
