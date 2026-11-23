@@ -5,29 +5,32 @@
   height: 40px;
   padding: 0 16px;
   border: 1px solid transparent;
-  background: var(--color-primary);
-  color: var(--color-white);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--color-primary, #285fb8);
+  color: var(--color-white, #fff);
   font: inherit;
   line-height: 1;
   white-space: nowrap;
+  cursor: pointer;
   appearance: none;
 }
 
 .noah-button--secondary {
-  background: var(--color-surface);
-  color: var(--color-primary);
-  border-color: var(--color-border);
+  background: var(--color-surface, #fff);
+  color: var(--color-primary, #285fb8);
+  border-color: var(--color-border, #e2e8f0);
 }
 
 .noah-button--danger {
-  background: var(--color-danger);
-  color: var(--color-white);
+  background: var(--color-danger, #dc2626);
+  color: var(--color-white, #fff);
 }
 
 .noah-button:disabled {
   opacity: 0.45;
+  cursor: default;
 }
 
 .noah-button--secondary:hover:not(:disabled) {
-  background: var(--color-surface-selected);
+  background: var(--color-surface-selected, #edf2f8);
 }

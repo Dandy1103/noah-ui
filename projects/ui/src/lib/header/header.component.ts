@@ -1,4 +1,10 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+
+export interface NoahHeaderAction {
+  label: string;
+  href: string;
+  method?: 'post';
+}
 
 @Component({
   selector: 'noah-header',
@@ -8,6 +14,9 @@ import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/
 })
 export class NoahHeaderComponent {
   @Input() userName = '';
+  @Input() homeHref = '/';
+  @Input() actions: readonly NoahHeaderAction[] = [];
+  @Output() submitted = new EventEmitter<SubmitEvent>();
 
   @ViewChild('account') account?: ElementRef<HTMLElement>;
 
@@ -19,15 +28,6 @@ export class NoahHeaderComponent {
 
   closeMenu(): void {
     this.isMenuOpen = false;
-  }
-
-  link(path: string): string {
-    const host = location.hostname;
-    const local = host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
-    if (local && (location.port === '4200' || location.port === '3000')) return path;
-    if (host === 'noahportal.dandy-cheng.com') return path;
-    const origin = local ? 'http://localhost:4200' : 'https://noahportal.dandy-cheng.com';
-    return `${origin}${path}`;
   }
 
   @HostListener('document:click', ['$event'])

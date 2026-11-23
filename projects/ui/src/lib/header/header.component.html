@@ -1,10 +1,10 @@
 <header class="noah-header">
-  <a class="noah-header__home" [href]="link('/')" aria-label="回首頁">
+  <a class="noah-header__home" [href]="homeHref" aria-label="回首頁">
     <img class="noah-header__logo" src="assets/images/logo.png" width="36" height="36" alt="">
     <span class="noah-header__brand">NOAH</span>
   </a>
   <div class="noah-header__actions">
-    @if (userName) {
+    @if (userName && actions.length) {
       <div class="noah-header__account" #account>
         <button
           type="button"
@@ -17,12 +17,15 @@
         </button>
         @if (isMenuOpen) {
           <div class="noah-header__menu" role="menu">
-            <a class="noah-header__menu-item" role="menuitem" [href]="link('/profile')" (click)="closeMenu()">個人資料</a>
-            <a class="noah-header__menu-item" role="menuitem" [href]="link('/permissions')" (click)="closeMenu()">我的權限</a>
-            <a class="noah-header__menu-item" role="menuitem" [href]="link('/auth/change-password')" (click)="closeMenu()">變更密碼</a>
-            <form class="noah-header__logout" [action]="link('/auth/logout')" method="post">
-              <button class="noah-header__menu-item" type="submit" role="menuitem">登出</button>
-            </form>
+            @for (action of actions; track $index) {
+              @if (action.method === 'post') {
+                <form class="noah-header__logout" [action]="action.href" method="post" (submit)="submitted.emit($event)">
+                  <button class="noah-header__menu-item" type="submit" role="menuitem">{{ action.label }}</button>
+                </form>
+              } @else {
+                <a class="noah-header__menu-item" role="menuitem" [href]="action.href" (click)="closeMenu()">{{ action.label }}</a>
+              }
+            }
           </div>
         }
       </div>

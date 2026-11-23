@@ -18,6 +18,15 @@ npm run storybook
 
 開 http://localhost:6006/ 。
 
+## 元件介面
+
+- `noah-page-heading` 接收 `title` 與 `breadcrumbs`。每個麵包屑有 `label`，需要連結時再提供 `href` 或 `route`。
+- `noah-sidebar` 接收 `sections`，每個分組有 `title` 和 `links`。連結有 `label` 和 `path`。
+- `noah-navbar` 接收 `groups` 和 `currentLabel`。目錄來源、網址和預覽狀態由各 App 處理。
+- `noah-header` 接收 `homeHref`、`userName` 和 `actions`。表單送出可以用 `(submitted)` 接管。
+- `noah-button` 接收 `message`、`variant`、`type` 和 `disabled`，沿用原生點擊和表單送出。
+- `input[noahInput]` 沿用原生屬性、事件和 Angular Forms。匯入 `NoahInputDirective` 與 `@dandy1103/ui/styles/controls` 即可套用樣式。
+
 ## 發布
 
 ```

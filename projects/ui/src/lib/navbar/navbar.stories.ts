@@ -4,9 +4,10 @@ import { NoahNavbarComponent } from './navbar.component';
 const meta: Meta<NoahNavbarComponent> = {
   title: 'Navbar',
   component: NoahNavbarComponent,
-  render: () => ({
-    template: `<noah-navbar repo="noah-portal" fallbackLabel="入口"></noah-navbar>`,
-  }),
+  args: {
+    currentLabel: '公告',
+    groups: [{ label: '公告', sections: [{ title: '公告', links: [{ label: '營運公告', href: '/operations' }] }] }],
+  },
 };
 
 export default meta;

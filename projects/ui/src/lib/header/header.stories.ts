@@ -10,6 +10,8 @@ const meta: Meta<NoahHeaderComponent> = {
   },
   args: {
     userName: '王小明',
+    homeHref: '/',
+    actions: [{ label: '個人資料', href: '/profile' }],
   },
 };
 

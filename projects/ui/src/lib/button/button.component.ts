@@ -13,7 +13,4 @@ export class NoahButtonComponent {
   @Input({ transform: booleanAttribute }) disabled = false;
   @Input() message = '';
 
-  get materialColor(): 'primary' | 'warn' {
-    return this.variant === 'danger' ? 'warn' : 'primary';
-  }
 }

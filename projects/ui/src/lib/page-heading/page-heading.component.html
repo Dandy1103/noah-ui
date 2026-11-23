@@ -1,0 +1,18 @@
+@if (breadcrumbs.length) {
+  <nav aria-label="麵包屑">
+    <ol>
+      @for (item of breadcrumbs; track $index; let last = $last) {
+        <li>
+          @if (item.route) {
+            <a [routerLink]="item.route">{{ item.label }}</a>
+          } @else if (item.href) {
+            <a [href]="item.href">{{ item.label }}</a>
+          } @else {
+            <span [attr.aria-current]="last ? 'page' : null">{{ item.label }}</span>
+          }
+        </li>
+      }
+    </ol>
+  </nav>
+}
+<h1>{{ title }}</h1>

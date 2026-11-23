@@ -54,7 +54,6 @@
               "projects/ui"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/ui/styles/reset.scss",
               "projects/ui/styles/utilities.scss",
               "projects/ui/.storybook/preview.scss"
@@ -82,7 +81,6 @@
               "projects/ui"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/ui/styles/reset.scss",
               "projects/ui/styles/utilities.scss",
               "projects/ui/.storybook/preview.scss"

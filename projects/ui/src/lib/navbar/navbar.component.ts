@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, HostListener, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild, inject, signal } from '@angular/core';
-import { applyNav, CatalogGroup, fallbackGroups, loadCatalog, NavCatalog, NavGroup } from './nav-catalog';
+import { AfterViewInit, Component, DestroyRef, ElementRef, HostListener, Input, NgZone, ViewChild, inject, signal } from '@angular/core';
+import { NavGroup } from './nav-catalog';
 
 export type { CatalogGroup, NavCatalog } from './nav-catalog';
 
@@ -9,24 +9,22 @@ export type { CatalogGroup, NavCatalog } from './nav-catalog';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() repo = '';
-  @Input() fallbackLabel = '';
-  @Input() preview: CatalogGroup[] | null = null;
-  @Input() catalog: NavCatalog | null = null;
-  @Input() revision = 0;
+export class NoahNavbarComponent implements AfterViewInit {
+  @Input() set groups(value: readonly NavGroup[]) {
+    this.items = value;
+    requestAnimationFrame(() => this.measure());
+  }
 
-  currentLabel = '';
+  get groups(): readonly NavGroup[] { return this.items; }
+
+  @Input() currentLabel = '';
+
   readonly opened = signal<string | null>(null);
   readonly moreOpen = signal(false);
   readonly visibleCount = signal(20);
-  groups: NavGroup[] = [];
-
-  private saved: NavCatalog | null = null;
-  private outsideCatalog = false;
+  private items: readonly NavGroup[] = [];
   private observer?: ResizeObserver;
   private closeTimer = 0;
-  private readonly loadAbort = new AbortController();
   private readonly zone = inject(NgZone);
 
   @ViewChild('bar') private bar?: ElementRef<HTMLElement>;
@@ -35,28 +33,9 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
-      this.loadAbort.abort();
       this.observer?.disconnect();
       window.clearTimeout(this.closeTimer);
     });
-  }
-
-  ngOnInit(): void {
-    if (this.outsideCatalog) return;
-    this.fetch();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['catalog']) {
-      this.outsideCatalog = true;
-      this.applyOutside();
-    }
-    const revision = changes['revision'];
-    if (revision && !revision.firstChange && !this.outsideCatalog) {
-      this.fetch();
-      return;
-    }
-    if (changes['preview'] && !changes['catalog']) this.showSaved();
   }
 
   ngAfterViewInit(): void {
@@ -122,54 +101,6 @@ export class NoahNavbarComponent implements OnInit, OnChanges, AfterViewInit {
   hide(): void {
     window.clearTimeout(this.closeTimer);
     this.opened.set(null);
-  }
-
-  private applyOutside(): void {
-    if (!this.catalog) {
-      this.saved = null;
-      this.useCatalog(null);
-      return;
-    }
-    const groups = this.preview ?? this.catalog.groups;
-    this.saved = { ...this.catalog, groups };
-    this.useCatalog(this.saved);
-  }
-
-  private fetch(): void {
-    if (this.outsideCatalog) return;
-    if (this.preview && this.saved) {
-      this.showSaved();
-      return;
-    }
-    void loadCatalog(this.loadAbort.signal).then((catalog) => {
-      if (this.preview) return;
-      if (!catalog) {
-        if (!this.saved) this.useCatalog(null);
-        return;
-      }
-      this.saved = catalog;
-      this.showSaved();
-    });
-  }
-
-  private showSaved(): void {
-    if (!this.saved) return;
-    const groups = this.preview ?? this.saved.groups;
-    this.useCatalog({ ...this.saved, groups });
-  }
-
-  private useCatalog(catalog: NavCatalog | null): void {
-    if (!catalog) {
-      this.groups = fallbackGroups(this.repo);
-      this.currentLabel = this.fallbackLabel;
-      requestAnimationFrame(() => this.measure());
-      return;
-    }
-    this.groups = applyNav(catalog, this.repo);
-    const mine = catalog.groups.find((group) => group.app === this.repo);
-    const named = catalog.systems.find((system) => system.repo === mine?.app);
-    if (mine) this.currentLabel = named?.name || mine.label;
-    requestAnimationFrame(() => this.measure());
   }
 
   private measure(): void {
