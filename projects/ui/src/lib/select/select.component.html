@@ -1,0 +1,19 @@
+<div class="noah-select">
+  <button type="button" class="noah-select__control" [attr.aria-expanded]="open()" (click)="toggle()">
+    <span>{{ currentLabel }}</span>
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M4 6l4 4 4-4" />
+    </svg>
+  </button>
+  @if (open()) {
+    <ul class="noah-select__menu" role="listbox">
+      @for (option of options; track option.value) {
+        <li>
+          <button type="button" role="option" [attr.aria-selected]="option.value === value" (click)="choose(option.value)">
+            {{ option.label }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

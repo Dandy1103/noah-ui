@@ -56,6 +56,7 @@
             "styles": [
               "projects/ui/styles/reset.scss",
               "projects/ui/styles/utilities.scss",
+              "projects/ui/styles/controls.scss",
               "projects/ui/.storybook/preview.scss"
             ],
             "assets": [
@@ -83,6 +84,7 @@
             "styles": [
               "projects/ui/styles/reset.scss",
               "projects/ui/styles/utilities.scss",
+              "projects/ui/styles/controls.scss",
               "projects/ui/.storybook/preview.scss"
             ],
             "assets": [

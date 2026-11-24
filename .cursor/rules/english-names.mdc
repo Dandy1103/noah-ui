@@ -1,0 +1,20 @@
+---
+description: UI library 的名字一律使用英文，禁止中文
+alwaysApply: true
+---
+
+# 名字用英文
+
+檔名、資料夾、selector、class、變數、型別、函式、Storybook 的 title 和 story 匯出，全部用英文。禁止中文、拼音混寫。
+
+畫面文案和 story 裡的假資料可以用中文，那不是名字。
+
+```ts
+// ❌
+title: '輸入框'
+export const 錯誤: Story = {}
+
+// ✅
+title: 'Input'
+export const Invalid: Story = {}
+```

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { NoahTableComponent } from './table.component';
 
 const meta: Meta<NoahTableComponent> = {
-  title: '表格',
+  title: 'Table',
   component: NoahTableComponent,
   render: () => ({
     template: `
@@ -24,4 +24,4 @@ const meta: Meta<NoahTableComponent> = {
 export default meta;
 type Story = StoryObj<NoahTableComponent>;
 
-export const 員工清單: Story = {};
+export const EmployeeList: Story = {};

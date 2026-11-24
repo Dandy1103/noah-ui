@@ -2,7 +2,6 @@ export interface CatalogSystem {
   repo: string;
   name?: string;
   url: string;
-  localUrl?: string;
   online: boolean;
 }
 

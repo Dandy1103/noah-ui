@@ -25,7 +25,8 @@ npm run storybook
 - `noah-navbar` 接收 `groups` 和 `currentLabel`。目錄來源、網址和預覽狀態由各 App 處理。
 - `noah-header` 接收 `homeHref`、`userName` 和 `actions`。表單送出可以用 `(submitted)` 接管。
 - `noah-button` 接收 `message`、`variant`、`type` 和 `disabled`，沿用原生點擊和表單送出。
-- `input[noahInput]` 沿用原生屬性、事件和 Angular Forms。匯入 `NoahInputDirective` 與 `@dandy1103/ui/styles/controls` 即可套用樣式。
+- `noah-input` 接收 `label`、`errorMessage`、`placeholder`、`value`、`type`、`disabled` 和 `invalid`。有 `errorMessage` 時，紅字顯示在輸入框底下。
+- `noah-select` 接收 `value` 和 `options`。每個選項有 `value` 與 `label`，選到之後用 `(valueChange)` 回傳。
 
 ## 發布
 
