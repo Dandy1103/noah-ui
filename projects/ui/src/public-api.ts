@@ -12,4 +12,5 @@ export { NoahPageHeadingComponent } from './lib/page-heading/page-heading.compon
 export type { NoahBreadcrumb } from './lib/page-heading/page-heading.component';
 export { NoahSidebarComponent } from './lib/sidebar/sidebar.component';
 export type { NoahSidebarSection } from './lib/sidebar/sidebar.component';
+export { NoahLoadingMaskComponent } from './lib/loading-mask/loading-mask.component';
 export { NoahInputDirective } from './lib/input/input.directive';
