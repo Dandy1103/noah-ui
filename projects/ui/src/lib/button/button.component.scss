@@ -32,8 +32,23 @@
 }
 
 .noah-button:disabled {
-  opacity: 0.45;
+  opacity: 1;
   cursor: default;
+}
+
+.noah-button:not(.noah-button--secondary):not(.noah-button--danger):disabled {
+  background: color-mix(in srgb, var(--color-primary, #285fb8) 48%, white);
+  color: white;
+}
+
+.noah-button--secondary:disabled {
+  background: color-mix(in srgb, var(--color-surface-raised, #fff) 55%, var(--color-surface-selected, #edf2f8));
+  color: color-mix(in srgb, var(--color-primary, #285fb8) 48%, white);
+}
+
+.noah-button--danger:disabled {
+  background: color-mix(in srgb, var(--color-danger, #dc2626) 48%, white);
+  color: white;
 }
 
 .noah-button--secondary:hover:not(:disabled) {
