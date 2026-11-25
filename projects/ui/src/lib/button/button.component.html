@@ -2,6 +2,7 @@
   [attr.type]="type"
   [disabled]="disabled"
   class="noah-button u-text-md u-rounded-sm"
+  [class.noah-button--small]="size === 'small'"
   [class.noah-button--secondary]="variant === 'secondary'"
   [class.noah-button--danger]="variant === 'danger'">
   {{ message }}

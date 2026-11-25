@@ -24,7 +24,9 @@ npm run storybook
 - `noah-sidebar` 接收 `sections`，每個分組有 `title` 和 `links`。連結有 `label` 和 `path`。
 - `noah-navbar` 接收 `groups` 和 `currentLabel`。目錄來源、網址和預覽狀態由各 App 處理。
 - `noah-header` 接收 `homeHref`、`userName` 和 `actions`。表單送出可以用 `(submitted)` 接管。
-- `noah-button` 接收 `message`、`variant`、`type` 和 `disabled`，沿用原生點擊和表單送出。
+- `noah-button` 接收 `message`、`variant`、`size`、`type` 和 `disabled`，沿用原生點擊和表單送出。`size` 可使用 `large`（桌機 160×40、手機 100×40）或 `small`（桌機 120×40、手機 80×40）。
+  - 主要按鈕 `variant="primary"` 是預設樣式，用於搜尋、提交、確認等主要操作。
+  - 次要按鈕 `variant="secondary"` 使用白底、淺灰框線和藍字，用於取消、返回、清除等輔助操作。
 - `noah-input` 接收 `label`、`errorMessage`、`placeholder`、`value`、`type`、`disabled` 和 `invalid`。有 `errorMessage` 時，紅字顯示在輸入框底下。
 - `noah-select` 接收 `value` 和 `options`。每個選項有 `value` 與 `label`，選到之後用 `(valueChange)` 回傳。
 

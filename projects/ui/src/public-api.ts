@@ -1,5 +1,5 @@
 export { NoahButtonComponent } from './lib/button/button.component';
-export type { NoahButtonVariant } from './lib/button/button.component';
+export type { NoahButtonSize, NoahButtonVariant } from './lib/button/button.component';
 export { NoahFieldComponent } from './lib/field/field.component';
 export { NoahTableComponent } from './lib/table/table.component';
 export { NoahHeaderComponent } from './lib/header/header.component';

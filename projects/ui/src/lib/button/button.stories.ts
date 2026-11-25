@@ -5,13 +5,22 @@ const meta: Meta<NoahButtonComponent> = {
   title: 'Button',
   component: NoahButtonComponent,
   args: {
+    message: '確認',
     variant: 'primary',
+    size: 'large',
     type: 'button',
     disabled: false,
   },
+  argTypes: {
+    variant: {
+      control: 'radio',
+      options: ['primary', 'secondary'],
+      description: '主要按鈕用於搜尋、提交、確認。次要按鈕用於取消、返回、清除。',
+    },
+  },
   render: (args) => ({
     props: args,
-    template: `<noah-button [variant]="variant" [type]="type" [disabled]="disabled">儲存</noah-button>`,
+    template: `<noah-button [message]="message" [variant]="variant" [size]="size" [type]="type" [disabled]="disabled" />`,
   }),
 };
 
@@ -20,12 +29,12 @@ type Story = StoryObj<NoahButtonComponent>;
 
 export const Primary: Story = {};
 
-export const Secondary: Story = {
-  args: { variant: 'secondary' },
+export const Small: Story = {
+  args: { size: 'small' },
 };
 
-export const Danger: Story = {
-  args: { variant: 'danger' },
+export const Secondary: Story = {
+  args: { variant: 'secondary', message: '取消' },
 };
 
 export const Disabled: Story = {
