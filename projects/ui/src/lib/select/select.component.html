@@ -1,6 +1,17 @@
+@if (label) {
+  <label class="noah-select__label" [id]="labelId" [attr.for]="controlId">{{ label }}</label>
+}
 <div class="noah-select">
-  <button type="button" class="noah-select__control" [attr.aria-expanded]="open()" (click)="toggle()">
-    <span>{{ currentLabel }}</span>
+  <button
+    type="button"
+    class="noah-select__control"
+    [id]="controlId"
+    [attr.aria-labelledby]="label ? labelId + ' ' + valueId : null"
+    [attr.aria-expanded]="open()"
+    [attr.aria-invalid]="errorMessage ? 'true' : null"
+    [attr.aria-describedby]="errorMessage ? errorId : null"
+    (click)="toggle()">
+    <span [id]="valueId">{{ currentLabel }}</span>
     <svg viewBox="0 0 16 16" aria-hidden="true">
       <path d="M4 6l4 4 4-4" />
     </svg>
@@ -17,3 +28,6 @@
     </ul>
   }
 </div>
+@if (errorMessage) {
+  <span class="noah-select__error" [id]="errorId">{{ errorMessage }}</span>
+}

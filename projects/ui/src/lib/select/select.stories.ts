@@ -5,7 +5,10 @@ const meta: Meta<NoahSelectComponent> = {
   title: 'Select',
   component: NoahSelectComponent,
   args: {
-    value: 'all',
+    label: '對象',
+    errorMessage: '',
+    placeholder: '請選擇',
+    value: '',
     options: [
       { value: 'all', label: '全部' },
       { value: 'staff', label: '全員' },
@@ -16,7 +19,13 @@ const meta: Meta<NoahSelectComponent> = {
     props: args,
     template: `
       <div style="width: 300px">
-        <noah-select [value]="value" [options]="options" (valueChange)="value = $event"></noah-select>
+        <noah-select
+          [label]="label"
+          [errorMessage]="errorMessage"
+          [placeholder]="placeholder"
+          [value]="value"
+          [options]="options"
+          (valueChange)="value = $event" />
       </div>
     `,
   }),
@@ -26,3 +35,7 @@ export default meta;
 type Story = StoryObj<NoahSelectComponent>;
 
 export const Default: Story = {};
+
+export const WithError: Story = {
+  args: { value: '', errorMessage: '請選擇對象' },
+};

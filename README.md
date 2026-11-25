@@ -28,7 +28,7 @@ npm run storybook
   - 主要按鈕 `variant="primary"` 是預設樣式，用於搜尋、提交、確認等主要操作。
   - 次要按鈕 `variant="secondary"` 使用白底、淺灰框線和藍字，用於取消、返回、清除等輔助操作。
 - `noah-input` 接收 `label`、`errorMessage`、`placeholder`、`value`、`type`、`disabled` 和 `invalid`。有 `errorMessage` 時，紅字顯示在輸入框底下。
-- `noah-select` 接收 `value` 和 `options`。每個選項有 `value` 與 `label`，選到之後用 `(valueChange)` 回傳。
+- `noah-select` 接收 `label`、`errorMessage`、`placeholder`、`value` 和 `options`。未選取時預設顯示「請選擇」，可用 `placeholder` 自訂。有 `errorMessage` 時，下拉框會顯示紅框，錯誤訊息顯示在下方。每個選項有 `value` 與 `label`，選到之後用 `(valueChange)` 回傳。
 
 ## 發布
 
