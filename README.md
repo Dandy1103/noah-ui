@@ -54,3 +54,12 @@ npm install @dandy1103/ui@latest
 `npm install` 照 `package.json` 裡的版本裝。`@latest` 裝目前最新版，並把版本寫回 `package.json`。之後再發新版不會自動跟著升，要再執行一次。
 
 裝完重開 dev server。
+
+## 本機即時開發
+
+HRM 和 Shell 可直接編譯相鄰的 `noah-ui` 原始碼，不需要發版或重新安裝套件：
+
+- HRM（會一併啟動 Shell）：在 `noah-hrm` 執行 `npm start`。若要測試已發布套件，執行 `npm run start:package`。
+- 單獨啟動 Shell：在 `noah-shell` 執行 `npm run start:ui-local`。
+
+此模式直接編譯 `../noah-ui/projects/ui/src`；修改 library 後 Angular 會自動重建並刷新，不用另外開 library watch。一般 `npm start` 和正式 build 仍使用已安裝的 npm 套件。HRM 啟動時若 Shell 已在 4200 執行，會沿用現有 Shell；要讓 Shell 也使用本機 library，先停止一般模式的 Shell，或先用 `npm run start:ui-local` 啟動 Shell。

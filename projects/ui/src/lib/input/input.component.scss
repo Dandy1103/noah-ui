@@ -20,8 +20,8 @@
   min-width: 0;
   min-height: 40px;
   padding: 0 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 4px);
   background: var(--color-surface-raised, #fff);
   color: inherit;
   font: inherit;
@@ -38,6 +38,8 @@
 
 .noah-input__control:focus {
   border-color: #285fb8;
+  outline: 2px solid var(--color-primary, #285fb8);
+  outline-offset: 1px;
 }
 
 .noah-input__control[aria-invalid='true'],

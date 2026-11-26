@@ -1,0 +1,29 @@
+:host { display: inline-block; }
+
+.noah-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--color-text-primary, #172033);
+  cursor: pointer;
+}
+
+.noah-checkbox__control {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--color-primary, #285fb8);
+  cursor: pointer;
+}
+
+.noah-checkbox__copy { display: grid; gap: 4px; }
+.noah-checkbox__label { font-size: 14px; font-weight: 600; line-height: 1.3; }
+.noah-checkbox__description { color: var(--color-text-secondary, #64748b); font-size: 12px; line-height: 1.4; }
+.noah-checkbox--disabled { opacity: .55; cursor: default; }
+.noah-checkbox--disabled .noah-checkbox__control { cursor: default; }
+
+.noah-checkbox__control:focus-visible {
+  outline: 2px solid var(--color-link, #0284c7);
+  outline-offset: 2px;
+}

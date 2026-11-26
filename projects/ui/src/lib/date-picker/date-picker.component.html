@@ -1,38 +1,69 @@
+@if (label) {
+  <span class="noah-date-picker__label" [id]="labelId">{{ label }}</span>
+}
 <div class="noah-date-picker">
   <button
     type="button"
     class="noah-date-picker__value"
+    [class.is-open]="isOpen"
     [disabled]="isDisabled"
+    [attr.aria-labelledby]="label ? labelId : null"
     [attr.aria-expanded]="isOpen"
     aria-haspopup="dialog"
     (click)="toggle()">
     {{ shownValue }}
   </button>
   @if (isOpen) {
-    <div class="noah-date-picker__panel" role="dialog" aria-label="選擇日期">
+    <div class="noah-date-picker__panel" role="dialog" [attr.aria-label]="label ? label + '：選擇日期' : '選擇日期'" (click)="$event.stopPropagation()">
       <div class="noah-date-picker__bar">
-        <button type="button" aria-label="上個月" (click)="shiftMonth(-1)">上個月</button>
-        <strong aria-live="polite">{{ viewLabel }}</strong>
-        <button type="button" aria-label="下個月" (click)="shiftMonth(1)">下個月</button>
-      </div>
-      <div class="noah-date-picker__grid">
-        @for (name of weekdays; track name) {
-          <span class="noah-date-picker__weekday">{{ name }}</span>
+        @if (panelMode === 'days') {
+          <button type="button" class="noah-date-picker__heading" aria-label="選擇年份與月份" aria-haspopup="grid" (click)="showMonthPicker($event)">
+            <span aria-live="polite">{{ viewLabel }}</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+          </button>
+        } @else if (panelMode === 'months') {
+          <button type="button" class="noah-date-picker__heading" aria-label="選擇年份" aria-haspopup="grid" (click)="showYearPicker($event)">
+            <span>{{ view.getFullYear() }}年</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+          </button>
+        } @else {
+          <strong class="noah-date-picker__heading">{{ yearPageLabel }}</strong>
         }
-        @for (day of days; track day.key) {
-          @if (day.date) {
+        <div class="noah-date-picker__navigation">
+          <button type="button" [attr.aria-label]="panelMode === 'days' ? '上個月' : panelMode === 'months' ? '上一年' : '上一個年代'" (click)="shiftPeriod(-1)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5" /></svg></button>
+          <button type="button" [attr.aria-label]="panelMode === 'days' ? '下個月' : panelMode === 'months' ? '下一年' : '下一個年代'" (click)="shiftPeriod(1)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg></button>
+        </div>
+      </div>
+      @if (panelMode === 'days') {
+        <div class="noah-date-picker__grid">
+          @for (name of weekdays; track name) {
+            <span class="noah-date-picker__weekday">{{ name }}</span>
+          }
+          @for (day of days; track day.key) {
             <button
               type="button"
               class="noah-date-picker__day"
               [class.is-picked]="day.iso === value"
               [class.is-today]="day.iso === today"
+              [class.is-outside-month]="!day.inCurrentMonth"
               [attr.aria-pressed]="day.iso === value"
+              [attr.aria-label]="day.iso"
               (click)="pick(day.iso)">{{ day.date }}</button>
-          } @else {
-            <span aria-hidden="true"></span>
           }
-        }
-      </div>
+        </div>
+      } @else if (panelMode === 'months') {
+        <div class="noah-date-picker__option-grid">
+          @for (month of months; track month) {
+            <button type="button" [class.is-current]="month === view.getMonth() + 1" (click)="chooseMonth(month)">{{ month }}月</button>
+          }
+        </div>
+      } @else {
+        <div class="noah-date-picker__option-grid">
+          @for (year of displayedYears; track year) {
+            <button type="button" [class.is-current]="year === view.getFullYear()" (click)="chooseYear(year)">{{ year }}</button>
+          }
+        </div>
+      }
     </div>
   }
 </div>

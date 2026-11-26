@@ -4,9 +4,8 @@ import { NoahDatePickerComponent } from './date-picker.component';
 const meta: Meta<NoahDatePickerComponent> = {
   title: 'Date Picker',
   component: NoahDatePickerComponent,
-  render: () => ({
-    template: '<div style="width: 300px"><noah-date-picker /></div>',
-  }),
+  args: { label: '日期' },
+  render: (args) => ({ props: args, template: '<div style="width: 300px"><noah-date-picker [label]="label" /></div>' }),
 };
 
 export default meta;

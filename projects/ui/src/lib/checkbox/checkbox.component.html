@@ -1,0 +1,14 @@
+<label class="noah-checkbox" [class.noah-checkbox--disabled]="disabled" [for]="controlId">
+  <input
+    class="noah-checkbox__control"
+    type="checkbox"
+    [id]="controlId"
+    [checked]="checked"
+    [disabled]="disabled"
+    [attr.aria-describedby]="description ? controlId + '-description' : null"
+    (change)="toggle($event)" />
+  <span class="noah-checkbox__copy">
+    @if (label) { <span class="noah-checkbox__label">{{ label }}</span> }
+    @if (description) { <small class="noah-checkbox__description" [id]="controlId + '-description'">{{ description }}</small> }
+  </span>
+</label>

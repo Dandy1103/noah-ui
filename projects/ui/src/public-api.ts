@@ -11,3 +11,6 @@ export { NoahInputDirective } from './lib/input/input.directive';
 export { NoahSelectComponent } from './lib/select/select.component';
 export type { NoahSelectOption } from './lib/select/select.component';
 export { NoahDatePickerComponent } from './lib/date-picker/date-picker.component';
+export { NoahCheckboxComponent } from './lib/checkbox/checkbox.component';
+export { NoahRadioGroupComponent } from './lib/radio-group/radio-group.component';
+export { NoahDialogComponent } from './lib/dialog/dialog.component';

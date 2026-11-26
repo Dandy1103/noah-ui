@@ -1,0 +1,48 @@
+@if (open) {
+  <div class="noah-dialog__scrim" (click)="onBackdropClick()">
+    <section
+      class="noah-dialog"
+      [class.noah-dialog--alert]="mode === 'alert'"
+      [class.noah-dialog--confirm]="mode === 'confirm'"
+      [class.noah-dialog--small]="size === 'small'"
+      [class.noah-dialog--large]="size === 'large'"
+      [attr.role]="mode === 'alert' ? 'alertdialog' : 'dialog'"
+      aria-modal="true"
+      [attr.aria-labelledby]="title ? titleId : null"
+      [attr.aria-label]="title ? null : (message || '對話框')"
+      [attr.aria-describedby]="message ? messageId : null"
+      (click)="$event.stopPropagation()">
+      @if (title || eyebrow) {
+        <header class="noah-dialog__header">
+          <div class="noah-dialog__heading">
+            @if (eyebrow) { <p class="noah-dialog__eyebrow">{{ eyebrow }}</p> }
+            @if (title) { <h2 class="noah-dialog__title" [id]="titleId">{{ title }}</h2> }
+            <div class="noah-dialog__subtitle"><ng-content select="[noahDialogSubtitle]" /></div>
+          </div>
+          @if (showClose) {
+            <button class="noah-dialog__close" type="button" [attr.aria-label]="closeLabel" (click)="close()">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+          }
+        </header>
+      }
+      <div class="noah-dialog__body">
+        @if (mode === 'content') {
+          <ng-content />
+        } @else if (message) {
+          <p class="noah-dialog__message" [id]="messageId">{{ message }}</p>
+        }
+      </div>
+      @if (mode === 'content') {
+        <footer class="noah-dialog__actions"><ng-content select="[noahDialogActions]" /></footer>
+      } @else {
+        <footer class="noah-dialog__actions">
+          <noah-button [variant]="confirmVariant" [message]="confirmLabel" (click)="confirm()" />
+          @if (mode === 'confirm') {
+            <noah-button variant="secondary" [message]="cancelLabel" (click)="cancel()" />
+          }
+        </footer>
+      }
+    </section>
+  </div>
+}

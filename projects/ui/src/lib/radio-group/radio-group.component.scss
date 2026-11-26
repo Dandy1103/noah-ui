@@ -1,0 +1,45 @@
+:host { display: block; }
+
+.noah-radio-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-primary, #172033);
+}
+
+.noah-radio-group__label {
+  margin: 0 0 8px;
+  padding: 0;
+  color: var(--color-text-primary, #001430);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.noah-radio-group__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.noah-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  cursor: pointer;
+}
+
+.noah-radio__control {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-primary, #285fb8);
+  cursor: pointer;
+}
+
+.noah-radio-group:disabled .noah-radio { opacity: .55; cursor: default; }
+.noah-radio__control:disabled { cursor: default; }
+.noah-radio__control:focus-visible { outline: 2px solid var(--color-link, #0284c7); outline-offset: 2px; }
