@@ -31,9 +31,8 @@
 }
 
 .noah-date-picker__value:focus {
-  border-color: var(--color-primary, #285fb8);
-  outline: 2px solid var(--color-primary, #285fb8);
-  outline-offset: 1px;
+  border: 2px solid var(--color-primary, #285fb8);
+  outline: none;
 }
 
 .noah-date-picker__value.is-open {
