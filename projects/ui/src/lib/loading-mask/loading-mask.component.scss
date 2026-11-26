@@ -8,22 +8,49 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgb(15 23 42 / 28%);
+  background: rgb(15 23 42 / 38%);
+  animation: mask-fade-in var(--mask-fade-duration, 150ms) ease-in both;
+}
+
+.mask--leaving {
+  animation-name: mask-fade-out;
+}
+
+@keyframes mask-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mask-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .mask__body {
   display: grid;
   justify-items: center;
-  gap: 12px;
+  gap: 14px;
+  padding: 20px 24px;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  background: var(--color-surface-raised, #fff);
+  box-shadow: 0 12px 32px var(--color-shadow, rgb(15 23 42 / 20%));
+}
+
+.mask__body::before {
+  width: 48px;
+  height: 48px;
+  background: url('/assets/images/logo.png') center / contain no-repeat;
+  content: '';
 }
 
 .mask__label {
   margin: 0;
-  color: var(--color-primary, #407fec);
-  font-size: var(--font-size-md, 16px);
-  font-weight: var(--font-weight-semibold, 600);
-  letter-spacing: 0.22em;
-  line-height: 1;
+  color: var(--color-text-primary, #0f172a);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
 }
 
 .mask__dots {
@@ -44,11 +71,11 @@
 }
 
 .mask__bar {
-  width: min(280px, 70vw);
-  height: 4px;
+  width: min(224px, 65vw);
+  height: 6px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgb(255 255 255 / 72%);
+  background: var(--color-surface-muted, #e8eef4);
 }
 
 .mask__bar::before {
@@ -67,6 +94,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mask,
+  .mask--leaving {
+    animation: none;
+  }
+
   .mask__bar::before {
     width: 100%;
     animation: none;

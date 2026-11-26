@@ -1,0 +1,38 @@
+<div class="noah-date-picker">
+  <button
+    type="button"
+    class="noah-date-picker__value"
+    [disabled]="isDisabled"
+    [attr.aria-expanded]="isOpen"
+    aria-haspopup="dialog"
+    (click)="toggle()">
+    {{ shownValue }}
+  </button>
+  @if (isOpen) {
+    <div class="noah-date-picker__panel" role="dialog" aria-label="選擇日期">
+      <div class="noah-date-picker__bar">
+        <button type="button" aria-label="上個月" (click)="shiftMonth(-1)">上個月</button>
+        <strong aria-live="polite">{{ viewLabel }}</strong>
+        <button type="button" aria-label="下個月" (click)="shiftMonth(1)">下個月</button>
+      </div>
+      <div class="noah-date-picker__grid">
+        @for (name of weekdays; track name) {
+          <span class="noah-date-picker__weekday">{{ name }}</span>
+        }
+        @for (day of days; track day.key) {
+          @if (day.date) {
+            <button
+              type="button"
+              class="noah-date-picker__day"
+              [class.is-picked]="day.iso === value"
+              [class.is-today]="day.iso === today"
+              [attr.aria-pressed]="day.iso === value"
+              (click)="pick(day.iso)">{{ day.date }}</button>
+          } @else {
+            <span aria-hidden="true"></span>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>

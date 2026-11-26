@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class NoahLoadingMaskComponent {
   @Input() label = '加載中...';
+  @Input() phase: 'hidden' | 'visible' | 'leaving' = 'visible';
+  @Input() fadeDuration = '150ms';
 
   get showsDots(): boolean {
     return this.label.endsWith('...');

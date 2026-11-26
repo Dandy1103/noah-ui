@@ -1,12 +1,14 @@
-<div class="mask" role="progressbar" [attr.aria-label]="label">
-  <div class="mask__body">
-    <p class="mask__label">
-      @if (showsDots) {
-        {{ caption }}<span class="mask__dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
-      } @else {
-        {{ label }}
-      }
-    </p>
-    <div class="mask__bar"></div>
+@if (phase !== 'hidden') {
+  <div class="mask" [class.mask--leaving]="phase === 'leaving'" [style.--mask-fade-duration]="fadeDuration" role="progressbar" [attr.aria-label]="label">
+    <div class="mask__body">
+      <p class="mask__label">
+        @if (showsDots) {
+          {{ caption }}<span class="mask__dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
+        } @else {
+          {{ label }}
+        }
+      </p>
+      <div class="mask__bar"></div>
+    </div>
   </div>
-</div>
+}
