@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, signal } from '@angular/core';
+import { NoahMenuStateService } from '../menu/menu-state.service';
 
 let nextId = 0;
 
@@ -13,7 +14,7 @@ export interface NoahSelectOption {
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
 })
-export class NoahSelectComponent {
+export class NoahSelectComponent implements OnDestroy {
   @Input() label = '';
   @Input() errorMessage = '';
   @Input() placeholder = '請選擇';
@@ -27,30 +28,47 @@ export class NoahSelectComponent {
   readonly errorId = `${this.controlId}-error`;
   readonly open = signal(false);
 
-  constructor(private readonly host: ElementRef<HTMLElement>) {}
+  constructor(
+    private readonly host: ElementRef<HTMLElement>,
+    private readonly menuState: NoahMenuStateService,
+  ) {}
 
   get currentLabel(): string {
     return this.options.find((option) => option.value === this.value)?.label ?? this.placeholder;
   }
 
   toggle(): void {
-    this.open.update((open) => !open);
+    if (this.open()) {
+      this.closeMenu();
+      return;
+    }
+    this.menuState.open(this, () => this.open.set(false));
+    this.open.set(true);
   }
 
   choose(value: string): void {
     this.valueChange.emit(value);
+    this.closeMenu();
+  }
+
+  ngOnDestroy(): void {
+    this.closeMenu();
+  }
+
+  private closeMenu(): void {
     this.open.set(false);
+    this.menuState.close(this);
   }
 
   @HostListener('document:click', ['$event'])
   closeFromOutside(event: MouseEvent): void {
     const target = event.target;
     if (!(target instanceof Node) || this.host.nativeElement.contains(target)) return;
-    this.open.set(false);
+    this.closeMenu();
   }
 
   @HostListener('document:keydown.escape')
   closeFromKeyboard(): void {
-    this.open.set(false);
+    this.closeMenu();
   }
 }

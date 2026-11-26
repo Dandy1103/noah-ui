@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener, Input, forwardRef, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnDestroy, forwardRef, inject } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NoahMenuStateService } from '../menu/menu-state.service';
 
 interface CalendarDay {
   key: string;
@@ -22,8 +23,9 @@ let nextId = 0;
     multi: true,
   }],
 })
-export class NoahDatePickerComponent implements ControlValueAccessor {
+export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy {
   private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly menuState = inject(NoahMenuStateService);
 
   @Input() label = '';
   readonly labelId = `noah-date-picker-label-${nextId++}`;
@@ -105,14 +107,23 @@ export class NoahDatePickerComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
-    if (isDisabled) this.isOpen = false;
+    if (isDisabled) this.closeMenu();
   }
 
   toggle(): void {
     if (this.isDisabled) return;
-    this.isOpen = !this.isOpen;
-    if (this.isOpen) this.panelMode = 'days';
+    if (this.isOpen) {
+      this.closeMenu();
+      return;
+    }
+    this.menuState.open(this, () => { this.isOpen = false; });
+    this.isOpen = true;
+    this.panelMode = 'days';
     this.onTouched();
+  }
+
+  ngOnDestroy(): void {
+    this.closeMenu();
   }
 
   showMonthPicker(event: MouseEvent): void {
@@ -153,14 +164,14 @@ export class NoahDatePickerComponent implements ControlValueAccessor {
     this.value = iso;
     this.onChange(iso);
     this.onTouched();
-    this.isOpen = false;
+    this.closeMenu();
   }
 
   @HostListener('focusout', ['$event'])
   closeWhenFocusLeaves(event: FocusEvent): void {
     const nextFocus = event.relatedTarget;
     if (nextFocus instanceof Node && this.host.nativeElement.contains(nextFocus)) return;
-    this.isOpen = false;
+    this.closeMenu();
   }
 
   @HostListener('document:click', ['$event'])
@@ -168,12 +179,17 @@ export class NoahDatePickerComponent implements ControlValueAccessor {
     if (!this.isOpen) return;
     const target = event.target;
     if (target instanceof Node && this.host.nativeElement.contains(target)) return;
+    this.closeMenu();
+  }
+
+  private closeMenu(): void {
     this.isOpen = false;
+    this.menuState.close(this);
   }
 
   @HostListener('document:keydown.escape')
   closeOnEscape(): void {
-    this.isOpen = false;
+    this.closeMenu();
   }
 
   private toIso(date: Date): string {
