@@ -2,7 +2,8 @@ name: 發布 Storybook
 
 on:
   push:
-    branches: [develop, main]
+    branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,6 +16,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
