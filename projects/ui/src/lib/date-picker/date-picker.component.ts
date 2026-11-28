@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnDestroy, forwardRef, inject } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, HostListener, Input, OnDestroy, forwardRef, inject } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NoahMenuStateService } from '../menu/menu-state.service';
@@ -28,7 +28,10 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
   private readonly menuState = inject(NoahMenuStateService);
 
   @Input() label = '';
+  @Input() hint = '';
+  @Input({ transform: booleanAttribute }) required = false;
   readonly labelId = `noah-date-picker-label-${nextId++}`;
+  readonly controlId = `noah-date-picker-${nextId}`;
   readonly weekdays = ['日', '一', '二', '三', '四', '五', '六'];
   readonly months = Array.from({ length: 12 }, (_, index) => index + 1);
   readonly years = Array.from(
@@ -36,6 +39,7 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
     (_, index) => new Date().getFullYear() + 20 - index,
   );
   value = '';
+  draft = '';
   isOpen = false;
   isDisabled = false;
   panelMode: 'days' | 'months' | 'years' = 'days';
@@ -43,12 +47,6 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
 
   private onChange: (value: string) => void = () => undefined;
   private onTouched: () => void = () => undefined;
-
-  get shownValue(): string {
-    if (!this.value) return '選擇日期';
-    const [year, month, day] = this.value.split('-');
-    return `${year}/${month}/${day}`;
-  }
 
   get today(): string {
     return this.toIso(new Date());
@@ -90,6 +88,7 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
 
   writeValue(value: string | null): void {
     this.value = value ?? '';
+    this.draft = this.formatDisplay(this.value);
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(this.value);
     if (!match) return;
     const [, year, month, day] = match;
@@ -110,16 +109,37 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
     if (isDisabled) this.closeMenu();
   }
 
-  toggle(): void {
-    if (this.isDisabled) return;
-    if (this.isOpen) {
-      this.closeMenu();
+  onInput(event: Event): void {
+    this.draft = (event.target as HTMLInputElement).value;
+  }
+
+  onEnter(event: Event): void {
+    event.preventDefault();
+    this.commitInput();
+    this.closeMenu();
+  }
+
+  commitInput(): void {
+    this.onTouched();
+    const typed = this.draft.trim();
+    if (!typed) {
+      this.applyValue('');
       return;
     }
-    this.menuState.open(this, () => { this.isOpen = false; });
+    const parsed = this.parseDate(typed);
+    if (!parsed) {
+      this.draft = this.formatDisplay(this.value);
+      return;
+    }
+    this.applyValue(parsed);
+  }
+
+  openPanel(): void {
+    if (this.isDisabled || this.isOpen) return;
+    this.menuState.open(this, () => this.closeMenu());
     this.isOpen = true;
     this.panelMode = 'days';
-    this.onTouched();
+    document.addEventListener('pointerdown', this.onOutsidePointer, true);
   }
 
   ngOnDestroy(): void {
@@ -132,7 +152,9 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
     this.panelMode = 'months';
   }
 
-  shiftPeriod(offset: number): void {
+  shiftPeriod(offset: number, event?: MouseEvent): void {
+    event?.preventDefault();
+    event?.stopPropagation();
     if (this.panelMode === 'days') {
       this.view = new Date(this.view.getFullYear(), this.view.getMonth() + offset, 1);
     } else if (this.panelMode === 'months') {
@@ -159,37 +181,60 @@ export class NoahDatePickerComponent implements ControlValueAccessor, OnDestroy 
   }
 
   pick(iso: string): void {
-    const [year, month] = iso.split('-').map(Number);
-    this.view = new Date(year, month - 1, 1);
-    this.value = iso;
-    this.onChange(iso);
+    this.applyValue(iso);
     this.onTouched();
     this.closeMenu();
   }
 
-  @HostListener('focusout', ['$event'])
-  closeWhenFocusLeaves(event: FocusEvent): void {
-    const nextFocus = event.relatedTarget;
-    if (nextFocus instanceof Node && this.host.nativeElement.contains(nextFocus)) return;
-    this.closeMenu();
-  }
-
-  @HostListener('document:click', ['$event'])
-  closeOnOutsideClick(event: MouseEvent): void {
+  private readonly onOutsidePointer = (event: PointerEvent): void => {
     if (!this.isOpen) return;
     const target = event.target;
     if (target instanceof Node && this.host.nativeElement.contains(target)) return;
     this.closeMenu();
-  }
+  };
 
   private closeMenu(): void {
+    if (!this.isOpen) return;
     this.isOpen = false;
+    this.panelMode = 'days';
+    document.removeEventListener('pointerdown', this.onOutsidePointer, true);
     this.menuState.close(this);
   }
 
   @HostListener('document:keydown.escape')
   closeOnEscape(): void {
+    if (!this.isOpen) return;
     this.closeMenu();
+  }
+
+  private applyValue(iso: string): void {
+    this.value = iso;
+    this.draft = this.formatDisplay(iso);
+    if (iso) {
+      const [year, month] = iso.split('-').map(Number);
+      this.view = new Date(year, month - 1, 1);
+    }
+    this.onChange(iso);
+  }
+
+  private formatDisplay(iso: string): string {
+    if (!iso) return '';
+    const [year, month, day] = iso.split('-');
+    if (!year || !month || !day) return '';
+    return `${year}/${month}/${day}`;
+  }
+
+  private parseDate(text: string): string | null {
+    const slash = /^(\d{4})[/-](\d{1,2})[/-](\d{1,2})$/.exec(text);
+    const compact = slash ?? /^(\d{4})(\d{2})(\d{2})$/.exec(text);
+    if (!compact) return null;
+    const year = Number(compact[1]);
+    const month = Number(compact[2]);
+    const day = Number(compact[3]);
+    if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+    const date = new Date(year, month - 1, day);
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+    return this.toIso(date);
   }
 
   private toIso(date: Date): string {

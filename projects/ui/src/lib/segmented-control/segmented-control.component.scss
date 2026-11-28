@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  max-width: 100%;
+}
+
+.noah-segmented-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}

@@ -12,6 +12,8 @@ export class NoahButtonComponent {
   @Input() variant: NoahButtonVariant = 'primary';
   @Input() size: NoahButtonSize = 'large';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() form: string | null = null;
   @Input({ transform: booleanAttribute }) disabled = false;
   @Input() message = '';
+  @Input() ariaPressed: boolean | null = null;
 }

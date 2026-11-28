@@ -21,14 +21,22 @@ npm run storybook
 ## 元件介面
 
 - `noah-page-heading` 接收 `title` 與 `breadcrumbs`。每個麵包屑有 `label`，需要連結時再提供 `href` 或 `route`。
+- `noah-table variant="list"` 提供清單列高、交錯底色、鍵盤焦點和展開樣式。用 `is-link` 標示可操作的列、`is-expanded` 和 `inline-detail` 標示展開列及其內容，`is-blank` 和 `is-empty` 分別標示補空列和空資料。預設列高為 48px，空資料區保留 10 列高度，可用 `--noah-table-row-height` 和 `--noah-table-page-size` 調整。
 - `noah-sidebar` 接收 `sections`，每個分組有 `title` 和 `links`。連結有 `label` 和 `path`。
 - `noah-navbar` 接收 `groups` 和 `currentLabel`。目錄來源、網址和預覽狀態由各 App 處理。
 - `noah-header` 接收 `homeHref`、`userName` 和 `actions`。表單送出可以用 `(submitted)` 接管。
 - `noah-button` 接收 `message`、`variant`、`size`、`type` 和 `disabled`，沿用原生點擊和表單送出。`size` 可使用 `large`（桌機 160×40、手機 100×40）或 `small`（桌機 120×40、手機 80×40）。
   - 主要按鈕 `variant="primary"` 是預設樣式，用於搜尋、提交、確認等主要操作。
   - 次要按鈕 `variant="secondary"` 使用白底、淺灰框線和藍字，用於取消、返回、清除等輔助操作。
+- `noah-icon-button` 固定 40×40，接收 `icon`、`label`、`variant`、`type` 和 `disabled`。`label` 會寫進 `aria-label`。目前 `icon` 支援 `edit`、`delete`。
 - `noah-input` 接收 `label`、`errorMessage`、`placeholder`、`value`、`type`、`disabled` 和 `invalid`。有 `errorMessage` 時，紅字顯示在輸入框底下。
 - `noah-select` 接收 `label`、`errorMessage`、`placeholder`、`value` 和 `options`。未選取時預設顯示「請選擇」，可用 `placeholder` 自訂。有 `errorMessage` 時，下拉框會顯示紅框，錯誤訊息顯示在下方。每個選項有 `value` 與 `label`，選到之後用 `(valueChange)` 回傳。
+
+## 內容排版
+
+在應用程式的樣式入口加入 `@use '@dandy1103/ui/styles/type';`，即可共用 `h1`–`h6` 和 `p` 的排版。在文章、說明或附件區的外層加上 `noah-prose`，裡面的原生 `ul`、`ol`、`li` 和 `a` 會套用清單標記、間距和連結樣式。頁面標題與麵包屑使用 `noah-page-heading`。
+
+資料詳情可在樣式入口用 `@use '@dandy1103/ui/styles/controls' as ui;` 和 `@include ui.description-list;`。在原生 `dl` 加上 `noah-description-list`，每組 `dt`、`dd` 放在同一個 `div`。可加上 `noah-description-list--striped` 或 `noah-description-list--divided`，並用 `--noah-description-label-width` 和 `--noah-description-row-padding` 調整欄寬與留白。
 
 ## 發布
 

@@ -1,0 +1,15 @@
+@if (visible) {
+  <nav class="noah-pager" aria-label="換頁">
+    <button type="button" (click)="shift(-1)" [disabled]="disabled || current === 1">上一頁</button>
+    @for (number of pages; track number) {
+      <button
+        type="button"
+        [class.is-current]="number === current"
+        [attr.aria-current]="number === current ? 'page' : null"
+        [attr.aria-label]="'第 ' + number + ' 頁'"
+        [disabled]="disabled"
+        (click)="go(number)">{{ number }}</button>
+    }
+    <button type="button" (click)="shift(1)" [disabled]="disabled || current === pageCount">下一頁</button>
+  </nav>
+}

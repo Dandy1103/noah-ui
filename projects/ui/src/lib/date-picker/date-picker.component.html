@@ -1,20 +1,33 @@
 @if (label) {
-  <span class="noah-date-picker__label" [id]="labelId">{{ label }}</span>
+  <span class="noah-date-picker__label" [id]="labelId">
+    {{ label }}
+    @if (required) {
+      <span class="noah-date-picker__required" aria-hidden="true">*</span>
+    }
+  </span>
 }
 <div class="noah-date-picker">
-  <button
-    type="button"
+  <input
+    type="text"
     class="noah-date-picker__value"
     [class.is-open]="isOpen"
+    [id]="controlId"
+    [value]="draft"
     [disabled]="isDisabled"
     [attr.aria-labelledby]="label ? labelId : null"
     [attr.aria-expanded]="isOpen"
+    [attr.required]="required ? '' : null"
+    [attr.aria-required]="required ? 'true' : null"
     aria-haspopup="dialog"
-    (click)="toggle()">
-    {{ shownValue }}
-  </button>
+    placeholder="YYYY/MM/DD"
+    autocomplete="off"
+    maxlength="10"
+    (input)="onInput($event)"
+    (focus)="openPanel()"
+    (blur)="commitInput()"
+    (keydown.enter)="onEnter($event)" />
   @if (isOpen) {
-    <div class="noah-date-picker__panel" role="dialog" [attr.aria-label]="label ? label + '：選擇日期' : '選擇日期'" (click)="$event.stopPropagation()">
+    <div class="noah-date-picker__panel" role="dialog" [attr.aria-label]="label ? label + '：選擇日期' : '選擇日期'" (mousedown)="$event.preventDefault()" (click)="$event.stopPropagation()">
       <div class="noah-date-picker__bar">
         @if (panelMode === 'days') {
           <button type="button" class="noah-date-picker__heading" aria-label="選擇年份與月份" aria-haspopup="grid" (click)="showMonthPicker($event)">
@@ -30,8 +43,8 @@
           <strong class="noah-date-picker__heading">{{ yearPageLabel }}</strong>
         }
         <div class="noah-date-picker__navigation">
-          <button type="button" [attr.aria-label]="panelMode === 'days' ? '上個月' : panelMode === 'months' ? '上一年' : '上一個年代'" (click)="shiftPeriod(-1)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5" /></svg></button>
-          <button type="button" [attr.aria-label]="panelMode === 'days' ? '下個月' : panelMode === 'months' ? '下一年' : '下一個年代'" (click)="shiftPeriod(1)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg></button>
+          <button type="button" [attr.aria-label]="panelMode === 'days' ? '上個月' : panelMode === 'months' ? '上一年' : '上一個年代'" (click)="shiftPeriod(-1, $event)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5" /></svg></button>
+          <button type="button" [attr.aria-label]="panelMode === 'days' ? '下個月' : panelMode === 'months' ? '下一年' : '下一個年代'" (click)="shiftPeriod(1, $event)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg></button>
         </div>
       </div>
       @if (panelMode === 'days') {
@@ -67,3 +80,6 @@
     </div>
   }
 </div>
+@if (hint) {
+  <span class="noah-date-picker__hint">{{ hint }}</span>
+}

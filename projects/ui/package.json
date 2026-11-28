@@ -1,6 +1,6 @@
 {
   "name": "@dandy1103/ui",
-  "version": "0.1.22",
+  "version": "0.1.54",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dandy1103/noah-ui.git"
@@ -20,7 +20,9 @@
   "exports": {
     "./styles/reset": "./styles/reset.scss",
     "./styles/utilities": "./styles/utilities.scss",
-    "./styles/controls": "./styles/controls.scss"
+    "./styles/type": "./styles/type.scss",
+    "./styles/controls": "./styles/controls.scss",
+    "./styles/button": "./styles/button.scss"
   },
   "sideEffects": false
 }

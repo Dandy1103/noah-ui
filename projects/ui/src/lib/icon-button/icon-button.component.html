@@ -1,0 +1,34 @@
+<button
+  [attr.type]="type"
+  [disabled]="disabled"
+  class="noah-icon-button u-rounded-sm"
+  [class.noah-icon-button--secondary]="variant === 'secondary'"
+  [class.noah-icon-button--danger]="variant === 'danger'"
+  [attr.aria-label]="label"
+  [attr.title]="label">
+  @if (icon === 'edit') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M5 19h2.1l9.1-9.1-2.1-2.1L5 16.9V19Zm14.7-11.3c.4-.4.4-1 0-1.4l-2-2a1 1 0 0 0-1.4 0l-1.6 1.6 3.4 3.4 1.6-1.6Z"/>
+    </svg>
+  } @else if (icon === 'delete') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M7 21c-.6 0-1-.2-1.4-.6S5 19.6 5 19V7H4V5h5V4h6v1h5v2h-1v12c0 .6-.2 1-.6 1.4S17.6 21 17 21H7Zm2-4h2V9H9v8Zm4 0h2V9h-2v8Z"/>
+    </svg>
+  } @else if (icon === 'withdraw') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M20.54 5.23 19.15 3.55C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.15.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27ZM12 17.5 6.5 12H10v-2h4v2h3.5L12 17.5ZM5.12 5l.81-1h12l.94 1H5.12Z"/>
+    </svg>
+  } @else if (icon === 'send') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M3.4 20.4 21 12 3.4 3.6l-.1 6.6L15 12 3.3 13.8l.1 6.6Z"/>
+    </svg>
+  } @else if (icon === 'recall') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8Z"/>
+    </svg>
+  } @else if (icon === 'view') {
+    <svg class="noah-icon-button__glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12 6c-5 0-9.3 3.1-11 7.5C2.7 17.9 7 21 12 21s9.3-3.1 11-7.5C21.3 9.1 17 6 12 6Zm0 12.5c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5Zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3Z"/>
+    </svg>
+  }
+</button>

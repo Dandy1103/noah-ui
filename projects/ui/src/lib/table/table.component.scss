@@ -33,3 +33,140 @@ noah-table {
 .noah-table tbody tr:last-child td {
   border-bottom: 0;
 }
+
+.noah-table[data-noah-table-variant='list'] {
+  border-color: var(--color-border, #e2e8f0);
+  background: var(--color-surface-raised, #fff);
+}
+
+.noah-table[data-noah-table-variant='list'] table {
+  table-layout: fixed;
+}
+
+.noah-table[data-noah-table-variant='list'] th,
+.noah-table[data-noah-table-variant='list'] td {
+  height: var(--noah-table-row-height, 48px);
+  padding: 0 16px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.noah-table[data-noah-table-variant='list'] th {
+  background: var(--color-surface-raised, #fff);
+  color: var(--color-text-primary, #172033);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-primary, #285fb8);
+}
+
+.noah-table[data-noah-table-variant='list'] td {
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-surface-raised, #fff);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr:nth-child(even) td {
+  background: var(--color-surface-muted, #e8eef4);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link {
+  cursor: pointer;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link:hover .title,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link:focus-visible .title {
+  text-decoration: underline;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link:focus-visible {
+  outline: 2px solid var(--color-link, #0284c7);
+  outline-offset: -2px;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr:hover td {
+  background: var(--color-surface-muted, #e8eef4);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-blank {
+  cursor: default;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-blank:hover td {
+  background: var(--color-surface-raised, #fff);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-blank:nth-child(even):hover td {
+  background: var(--color-surface-muted, #e8eef4);
+}
+
+.noah-table[data-noah-table-variant='list'] td.actions,
+.noah-table[data-noah-table-variant='list'] td.status-cell {
+  padding-inline: 8px;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-expanded td {
+  border-bottom: 0;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-even td {
+  background: var(--color-surface-raised, #fff);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-odd td {
+  background: var(--color-surface-muted, #e8eef4);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-even:hover td,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-odd:hover td,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-even:focus-visible td,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-odd:focus-visible td {
+  background: var(--color-surface-muted, #e8eef4);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-expanded td,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-expanded:hover td,
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-expanded:focus-visible td {
+  background: var(--color-info-soft, #eff6ff);
+  box-shadow: none;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link.is-expanded td:first-child {
+  box-shadow: inset 4px 0 0 var(--color-primary, #285fb8);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-link {
+  transition: opacity 160ms ease;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody:has(tr.is-expanded) tr.is-link:not(.is-expanded) {
+  opacity: 0.5;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody:has(tr.is-expanded) tr.is-link:not(.is-expanded):hover,
+.noah-table[data-noah-table-variant='list'] tbody:has(tr.is-expanded) tr.is-link:not(.is-expanded):focus-visible {
+  opacity: 0.78;
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.is-empty td {
+  height: calc(var(--noah-table-page-size, 10) * var(--noah-table-row-height, 48px));
+  background: var(--color-surface-raised, #fff);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .noah-table[data-noah-table-variant='list'] tbody tr.is-empty td {
+    overflow: visible;
+  }
+
+  .noah-table[data-noah-table-variant='list'] tbody tr.is-empty p {
+    position: sticky;
+    left: 16px;
+    width: max-content;
+  }
+}

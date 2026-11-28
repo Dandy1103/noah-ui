@@ -1,3 +1,6 @@
-<div class="noah-table">
+<div class="noah-table" [attr.data-noah-table-variant]="variant">
   <ng-content />
 </div>
+@if (pager) {
+  <noah-pager [page]="page" [pageCount]="pageCount" (pageChange)="pageChange.emit($event)" />
+}

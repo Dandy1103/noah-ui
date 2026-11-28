@@ -1,15 +1,58 @@
 <label class="noah-input">
   @if (label) {
-    <span class="noah-input__label">{{ label }}</span>
+    <span class="noah-input__label">
+      {{ label }}
+      @if (required) {
+        <span class="noah-input__required" aria-hidden="true">*</span>
+      }
+    </span>
   }
-  <input
-    class="noah-input__control"
-    [type]="type"
-    [placeholder]="placeholder"
-    [value]="value"
-    [disabled]="disabled"
-    [attr.aria-invalid]="hasError ? 'true' : null"
-    [attr.aria-describedby]="errorMessage ? errorId : null">
+  @if (multiline) {
+    <textarea
+      #control
+      class="noah-input__control noah-input__control--area"
+      [placeholder]="placeholder"
+      [value]="text"
+      [disabled]="isDisabled"
+      [readOnly]="readonly"
+      [rows]="rows"
+      [attr.maxlength]="maxlength"
+      [attr.minlength]="minlength"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.spellcheck]="spellcheck"
+      [attr.required]="required ? '' : null"
+      [attr.aria-required]="required ? 'true' : null"
+      [attr.aria-readonly]="readonly ? 'true' : null"
+      [attr.aria-invalid]="hasError ? 'true' : null"
+      [attr.aria-describedby]="describedBy"
+      (input)="update($event)"
+      (blur)="touch()"></textarea>
+  } @else {
+    <input
+      #control
+      class="noah-input__control"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="text"
+      [disabled]="isDisabled"
+      [readOnly]="readonly"
+      [attr.maxlength]="maxlength"
+      [attr.minlength]="minlength"
+      [attr.step]="step"
+      [attr.autocomplete]="autocomplete || null"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.spellcheck]="spellcheck"
+      [attr.required]="required ? '' : null"
+      [attr.aria-required]="required ? 'true' : null"
+      [attr.aria-readonly]="readonly ? 'true' : null"
+      [attr.aria-invalid]="hasError ? 'true' : null"
+      [attr.aria-describedby]="describedBy"
+      (input)="update($event)"
+      (blur)="touch()">
+  }
+  @if (hint) {
+    <span class="noah-input__hint">{{ hint }}</span>
+  }
   @if (errorMessage) {
     <span class="noah-input__error" [id]="errorId">{{ errorMessage }}</span>
   }

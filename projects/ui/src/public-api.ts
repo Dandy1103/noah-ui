@@ -1,16 +1,24 @@
 export { NoahButtonComponent } from './lib/button/button.component';
 export type { NoahButtonSize, NoahButtonVariant } from './lib/button/button.component';
-export { NoahFieldComponent } from './lib/field/field.component';
+export { NoahSegmentedControlComponent } from './lib/segmented-control/segmented-control.component';
+export { NoahIconButtonComponent } from './lib/icon-button/icon-button.component';
+export type { NoahIconButtonIcon, NoahIconButtonVariant } from './lib/icon-button/icon-button.component';
 export { NoahTableComponent } from './lib/table/table.component';
+export { NoahTableDetailComponent } from './lib/table/table-detail.component';
+export { NoahTableDetailContentComponent } from './lib/table/table-detail-content.component';
+export type { NoahTableDetailAttachment } from './lib/table/table-detail-content.component';
 
 export { NoahPageHeadingComponent } from './lib/page-heading/page-heading.component';
 export type { NoahBreadcrumb } from './lib/page-heading/page-heading.component';
 export { NoahLoadingMaskComponent } from './lib/loading-mask/loading-mask.component';
+export { NoahSpinnerComponent } from './lib/spinner/spinner.component';
 export { NoahInputComponent } from './lib/input/input.component';
-export { NoahInputDirective } from './lib/input/input.directive';
 export { NoahSelectComponent } from './lib/select/select.component';
 export type { NoahSelectOption } from './lib/select/select.component';
 export { NoahDatePickerComponent } from './lib/date-picker/date-picker.component';
 export { NoahCheckboxComponent } from './lib/checkbox/checkbox.component';
 export { NoahRadioGroupComponent } from './lib/radio-group/radio-group.component';
 export { NoahDialogComponent } from './lib/dialog/dialog.component';
+export { NoahPagerComponent } from './lib/pager/pager.component';
+export { NoahFileUploadComponent } from './lib/file-upload/file-upload.component';
+export type { NoahFileUploadItem } from './lib/file-upload/file-upload.component';

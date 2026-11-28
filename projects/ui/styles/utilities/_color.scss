@@ -1,16 +1,19 @@
 :root {
   --color-primary: #407fec;
   --color-primary-hover: #3066c8;
-  --color-surface: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-raised: #ffffff;
   --color-surface-selected: #edf2f8;
+  --color-text-primary: #0f172a;
   --color-text-secondary: #64748b;
   --color-text-muted: #94a3b8;
   --color-danger: #dc2626;
+  --color-danger-strong: #b91c1c;
   --color-white: #ffffff;
 }
 
 .u-text-brand { color: var(--color-primary); }
-.u-text-on-brand { color: var(--color-surface); }
+.u-text-on-brand { color: var(--color-white); }
 .u-text-secondary { color: var(--color-text-secondary); }
 .u-text-muted { color: var(--color-text-muted); }
 .u-text-danger { color: var(--color-danger); }

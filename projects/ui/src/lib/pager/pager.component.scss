@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.noah-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 0 0;
+}
+
+.noah-pager button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-text-secondary, #64748b);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.noah-pager button.is-current {
+  background: var(--color-primary, #285fb8);
+  color: var(--color-surface-raised, #fff);
+  font-weight: 600;
+}
+
+.noah-pager button:hover:not(:disabled):not(.is-current) {
+  background: var(--color-surface-selected, #edf2f8);
+  color: var(--color-text-primary, #172033);
+}
+
+.noah-pager button:focus-visible {
+  outline: 2px solid var(--color-link, #0284c7);
+  outline-offset: 2px;
+}
+
+.noah-pager button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

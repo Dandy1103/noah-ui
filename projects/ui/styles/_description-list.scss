@@ -1,0 +1,29 @@
+@mixin description-list {
+  .noah-description-list {
+    margin: 0;
+  }
+
+  .noah-description-list > div {
+    display: grid;
+    grid-template-columns: var(--noah-description-label-width, 120px) minmax(0, 1fr);
+    gap: var(--spacing-md, 16px);
+    padding: var(--noah-description-row-padding, 12px 16px);
+  }
+
+  .noah-description-list > div > :where(dt, dd) {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .noah-description-list > div > dt {
+    color: var(--color-text-secondary, #64748b);
+  }
+
+  .noah-description-list--striped > div:nth-child(even) {
+    background: var(--color-surface-muted, #e8eef4);
+  }
+
+  .noah-description-list--divided > div + div {
+    border-top: 1px solid var(--color-border, #e2e8f0);
+  }
+}

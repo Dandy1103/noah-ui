@@ -1,0 +1,51 @@
+<div class="noah-file-upload">
+  @if (label) {
+    <span class="noah-file-upload__label">{{ label }}</span>
+  }
+  <input
+    class="noah-file-upload__input"
+    type="file"
+    [id]="inputId"
+    [accept]="accept || null"
+    [multiple]="multiple"
+    [disabled]="disabled"
+    (change)="onPick($event)" />
+  <label class="noah-file-upload__picker" [attr.for]="inputId" [attr.inert]="disabled ? '' : null">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" />
+    </svg>
+    <span class="noah-file-upload__text">
+      <strong>{{ title }}</strong>
+      @if (hint) {
+        <small>{{ hint }}</small>
+      }
+    </span>
+  </label>
+  @if (files.length) {
+    <ul class="noah-file-upload__files" [class.noah-file-upload__files--full-width]="fileActions !== null" aria-label="已選附件">
+      @for (file of files; track fileActions ? file : $index) {
+        <li>
+          @if (fileActions; as actions) {
+            <div class="noah-file-upload__file-name">
+              @if (fileNameEditor && editingFile === file) {
+                <ng-container *ngTemplateOutlet="fileNameEditor; context: { $implicit: file }" />
+              } @else if (file.displayName?.trim() && file.displayName?.trim() !== file.name) {
+                <strong>{{ file.displayName?.trim() }}</strong>
+                <small class="noah-file-upload__original-name">原檔名：{{ file.name }}</small>
+              } @else {
+                <strong>{{ file.name }}</strong>
+              }
+            </div>
+            <ng-container *ngTemplateOutlet="actions; context: { $implicit: file, editing: editingFile === file }" />
+          } @else {
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 3h7l4 4v14H7zM14 3v5h5" />
+            </svg>
+            <span>{{ file.name }}</span>
+            <button type="button" [attr.aria-label]="'移除 ' + file.name" (click)="remove.emit($index)">×</button>
+          }
+        </li>
+      }
+    </ul>
+  }
+</div>

@@ -1,0 +1,35 @@
+.noah-table[data-noah-table-variant='list'] tbody tr.noah-table-detail td {
+  height: auto;
+  padding: 14px 18px 16px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  background: var(--color-info-soft, #eff6ff);
+  box-shadow: inset 4px 0 0 var(--color-primary, #285fb8);
+}
+
+.noah-table[data-noah-table-variant='list'] tbody tr.noah-table-detail td > h3:first-child {
+  margin-top: 0;
+}
+
+.noah-table-detail__body {
+  margin: 0;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.noah-table-detail__result {
+  margin-top: 18px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--color-border-strong, #cbd5e1);
+}
+
+.noah-table-detail__result h3 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.noah-table-detail__result-body p {
+  margin: 0;
+}

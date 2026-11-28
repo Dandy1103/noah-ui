@@ -32,6 +32,7 @@ type Story = StoryObj<NoahDialogComponent>;
 
 export const Default: Story = {};
 export const Small: Story = { args: { size: 'small', title: '確認操作' } };
+export const Large: Story = { args: { size: 'large', title: '編輯權限' } };
 export const Alert: Story = {
   args: { mode: 'alert', eyebrow: '', title: '已儲存', message: '員工資料已成功更新。', showClose: false },
 };
